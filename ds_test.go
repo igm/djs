@@ -2,7 +2,7 @@ package disjointset_test
 
 import (
 	"fmt"
-	ds "github.com/igm/disjointsets"
+	ds "github.com/igm/disjointset"
 	"testing"
 )
 
@@ -95,4 +95,17 @@ func ExampleInit() {
 	fmt.Println(data)
 	// Output: true
 	//[0 2 2 3 4 5 6 7 8 9 11 11 12 13 14 15 16 17 18 19]
+}
+
+func ExampleNewRankUnion() {
+	// create structure with nodes adresses from 0 to 9 (10 in length)
+	uf := ds.NewRankUnion(10)
+	// join 1 and 2
+	ds.Union(uf, 1, 2)
+	// join 3 and 4
+	ds.Union(uf, 3, 4)
+	fmt.Println(ds.Find(uf, 2))
+	fmt.Println(ds.Find(uf, 1))
+	// Output: 1
+	// 1
 }
