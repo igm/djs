@@ -1,12 +1,13 @@
-// In computing, a disjoint-set data structure (or union find data structure) is a data structure that keeps track of a set of elements partitioned into a number of disjoint (nonoverlapping) subsets. A union-find algorithm is an algorithm that performs two useful operations on such a data structure:
+// A disjoint-set data structure is a data structure that keeps track of a set of elements partitioned into a number of disjoint (nonoverlapping) subsets.
+// A union-find algorithm is an algorithm that performs two useful operations on such a data structure:
 //
 //  Find  - determine which subset a particular element is in. This can be used for determining if two elements are in the same subset.
 //  Union - join two subsets into a single subset.
 package djs
 
-// A type, typically a collection. This is the minimum contract any structure needs to conform in order
+// Interface is the minimum contract any structure needs to conform in order
 // to be used as underlaying data structure for union-find algorithm.
-// Path compression is the only iprovement applied in this case.
+// Path compression is the only improvement applied in this case.
 type Interface interface {
 	// Sets parent p to element c
 	SetParent(c, p interface{})
@@ -14,19 +15,20 @@ type Interface interface {
 	GetParent(c interface{}) interface{}
 }
 
-// Adds iteration to optionally perform initial state setup
+// InitInterface enables iteration to perform initial state setup
 type InitInterface interface {
 	Interface
 	Each(func(a interface{}))
 }
 
-// Additional methods to enable "union by rank".
+// RankInterface with more methods to enable "union by rank".
 type RankInterface interface {
 	Interface
 	GetRank(a interface{}) int
 	SetRank(a interface{}, rank int)
 }
 
+// Init sets all elements parent to itself (i.e. 1->1, 2->2, 3->3, ...) via SetParent(...) to achieve proper initial state
 func Init(u InitInterface) {
 	u.Each(func(a interface{}) {
 		u.SetParent(a, a)
@@ -43,17 +45,17 @@ func root(u Interface, a interface{}) interface{} {
 	return a
 }
 
-//  Determine which subset a particular element is in. This can be used for determining if two elements are in the same subset.
+//  Find determines which subset a particular element is in. This can be used for determining if two elements are in the same subset.
 func Find(u Interface, a interface{}) interface{} {
 	return root(u, a)
 }
 
-// Convenient method that compares result of Find for both elements.
+// Connected is a convenient method that compares result of Find for both elements.
 func Connected(u Interface, a, b interface{}) bool {
 	return root(u, a) == root(u, b)
 }
 
-// Join two subsets into a single subset.
+// Union joins two subsets into a single subset.
 func Union(u Interface, a, b interface{}) {
 	aa := Find(u, a)
 	bb := Find(u, b)
@@ -103,6 +105,7 @@ func (m *rankUnion) Each(fn func(a interface{})) {
 	}
 }
 
+// NewRankUnion creates a convenient structure of specified size containing elements of type int. The structure also supports ranking.
 func NewRankUnion(size int) *rankUnion {
 	ret := &rankUnion{sets: make([]int, size), ranks: make([]int, size)}
 	Init(ret)
