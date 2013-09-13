@@ -2,7 +2,7 @@
 //
 //  Find  - determine which subset a particular element is in. This can be used for determining if two elements are in the same subset.
 //  Union - join two subsets into a single subset.
-package disjointset
+package djs
 
 // A type, typically a collection. This is the minimum contract any structure needs to conform in order
 // to be used as underlaying data structure for union-find algorithm.

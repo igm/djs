@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	ds "github.com/igm/disjointset"
+	ds "github.com/igm/djs"
 )
 
 func main() {
