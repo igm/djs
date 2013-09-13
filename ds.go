@@ -1,8 +1,11 @@
-// A disjoint-set data structure is a data structure that keeps track of a set of elements partitioned into a number of disjoint (nonoverlapping) subsets.
-// A union-find algorithm is an algorithm that performs two useful operations on such a data structure:
-//
-//  Find  - determine which subset a particular element is in. This can be used for determining if two elements are in the same subset.
-//  Union - join two subsets into a single subset.
+/*
+A disjoint-set data structure is a data structure that keeps track of a set of elements partitioned into a number of disjoint (nonoverlapping) subsets.
+
+A union-find algorithm is an algorithm that performs two useful operations on such a data structure:
+
+ Find  - determine which subset a particular element is in. This can be used for determining if two elements are in the same subset.
+ Union - join two subsets into a single subset.
+*/
 package djs
 
 // Interface is the minimum contract any structure needs to conform in order
